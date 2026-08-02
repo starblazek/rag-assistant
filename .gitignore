@@ -26,9 +26,12 @@ Thumbs.db
 .pytest_cache/
 .mypy_cache/
 
-# Jupytergit add .
+# Jupyter
 .ipynb_checkpoints/
 
-# files for RAG
+# RAG generated files
 storage/history.json
 storage/chunks.json
+
+# Knowledge files
+knowledge/
