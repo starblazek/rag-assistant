@@ -35,3 +35,6 @@ storage/chunks.json
 
 # Knowledge files
 knowledge/
+
+# RAG storage
+storage/
