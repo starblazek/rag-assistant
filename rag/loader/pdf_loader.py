@@ -3,14 +3,19 @@ from pypdf import PdfReader
 
 def load_pdf(path):
     doc = PdfReader(path)
-    parts = []
+    sections = []
 
-    for page in doc.pages:
+    for page_number, page in enumerate(doc.pages, start=1):
         text = page.extract_text()
-        if text:
-            parts.append(text)
+        if text and text.strip():
+            sections.append({
+                "text": text,
+                "metadata": {
+                    "page": page_number
+                }
+            })
 
     return {
-        "text": "\n".join(parts),
-        "source": path.name
+        "source": path.name,
+        "sections": sections
     }

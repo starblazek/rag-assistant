@@ -9,17 +9,19 @@ def retrieve(question):
     chunks = load_chunks()
     for chunk in chunks:
         score = cosine_similarity(embedding_question, chunk["embedding"])
-        if score >=git --version SIMILARITY_THRESHOLD:
+        if score >= SIMILARITY_THRESHOLD:
             results.append({
-            "score": score,
-            "text": chunk["text"],
-            "source": chunk["source"],
-            "chunk_id": chunk["chunk_id"],
+                "score": score,
+                "text": chunk["text"],
+                "source": chunk["source"],
+                "metadata": chunk.get("metadata", {}),
+                "chunk_id": chunk["chunk_id"],
             })
     sorted_results = sorted(
-    results,
-    key=lambda result: result["score"],
-    reverse=True)
+        results,
+        key=lambda result: result["score"],
+        reverse=True
+    )
 
     return sorted_results[:TOP_K]
 

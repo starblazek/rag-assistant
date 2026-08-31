@@ -13,7 +13,14 @@ LOADERS = {
 
 def load_documents():
     documents = []
+    if not KNOWLEDGE_PATH.exists():
+        print(f"Knowledge directory not found: {KNOWLEDGE_PATH}")
+        return documents
+
     for file in KNOWLEDGE_PATH.iterdir():
+        if not file.is_file():
+            continue
+
         extension = file.suffix.lower()
 
         loader = LOADERS.get(extension)
@@ -21,11 +28,18 @@ def load_documents():
         if loader:
             document = loader(file)
 
-            if document["text"].strip():
+            if has_text(document):
                 documents.append(document)
             else:
                 print(f"Empty document: {file.name}")
         else:
             print(f"Unsupported file: {file.name}")
     return documents
+
+
+def has_text(document):
+    for section in document.get("sections", []):
+        if section.get("text", "").strip():
+            return True
+    return False
 

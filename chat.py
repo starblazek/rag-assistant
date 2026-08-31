@@ -14,7 +14,7 @@ def chat(question):
             'content': SYSTEM_PROMPT
         }
     ]
-    context = get_context()
+    context = get_context(question)
 
     messages.append({
         'role': 'system',

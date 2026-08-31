@@ -6,6 +6,13 @@ def load_txt(path):
         text = file.read()
 
     return {
-        "text": text,
-        "source": path.name
+        "source": path.name,
+        "sections": [
+            {
+                "text": text,
+                "metadata": {
+                    "format": "txt"
+                }
+            }
+        ]
     }
