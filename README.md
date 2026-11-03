@@ -18,16 +18,15 @@
 ## Архитектура
 
 ```text
-файлы в knowledge/
-  └─ загрузчики (TXT, PDF, DOCX, PPTX)
-       └─ секции документа с метаданными источника
-            └─ разбиение на фрагменты
-                 └─ storage/chunks.json
-                      └─ эмбеддинги Ollama (bge-m3)
-                           └─ семантический поиск
-                                └─ форматированный контекст курса
-                                     └─ чат-модель Ollama (qwen3:8b)
-                                          └─ ответ в терминале
+Подготовка материалов:
+knowledge/ → loaders → sections → splitter
+→ storage/chunks.json → vectorize (bge-m3) → chunks.json с эмбеддингами
+
+Ответ на вопрос:
+вопрос пользователя → embedding (bge-m3)
+→ cosine similarity с chunks.json → top-3 подходящих фрагмента
+→ context.py (источники и расположение)
+→ system prompt + история + контекст → qwen3:8b → терминал
 ```
 
 Основные модули:
